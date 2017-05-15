@@ -83,13 +83,28 @@ const List = (props: {
   children: any,
 }) => {
   if (props.type === 'ordered') {
-    return <ol start={props.start}>{props.children}</ol>;
+    return <ol start={props.start} style={List.style}>{props.children}</ol>;
   }
-  return <ul>{props.children}</ul>;
+  return <ul style={List.style}>{props.children}</ul>;
+};
+List.style = {
+  ...sharedStyle,
+  margin: '0 0 16px',
+  paddingLeft: '2em',
 };
 
 const Item = (props: { children: any }) => {
-  return <li>{props.children}</li>;
+  // check to see if the item conains another list, if it does
+  // offset the bottom margin of the list it contains
+  const containsList = props.children.some(
+    child =>
+      React.isValidElement(child) &&
+      typeof child.type === 'function' &&
+      child.type.name === 'List',
+  );
+  const style = {};
+  if (containsList) style.margin = '0 0 -16px';
+  return <li style={style}>{props.children}</li>;
 };
 
 const BlockQuote = (props: { children: any }) => {
