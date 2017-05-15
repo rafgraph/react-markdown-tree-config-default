@@ -97,10 +97,7 @@ const Item = (props: { children: any }) => {
   // check to see if the item conains another list, if it does
   // offset the bottom margin of the list it contains
   const containsList = props.children.some(
-    child =>
-      React.isValidElement(child) &&
-      typeof child.type === 'function' &&
-      child.type.name === 'List',
+    child => React.isValidElement(child) && child.type === List,
   );
   const style = {};
   if (containsList) style.margin = '0 0 -16px';
