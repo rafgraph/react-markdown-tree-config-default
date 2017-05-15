@@ -15,7 +15,13 @@ import App from './App';
 ...
 <MarkdownProvider config={markdownConfig}>
   <App />
-</MarkdownProvider>  
+</MarkdownProvider>
+```
+
+You can also use the UMD build that's available from Unpkg:
+```html
+<!-- Available at window.ReactMarkdownTreeConfigDefault -->
+<script src="https://unpkg.com/react-markdown-tree-config-default/dist/react-markdown-tree-config-default.min.js"></script>
 ```
 
 ### Editing the Config
