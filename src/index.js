@@ -136,7 +136,10 @@ Emph.style = {
 };
 
 const Strong = (props: { children: any }) => {
-  return <strong>{props.children}</strong>;
+  return <strong style={Strong.style}>{props.children}</strong>;
+};
+Strong.style = {
+  fontWeight: '600',
 };
 
 const Softbreak = () => {
