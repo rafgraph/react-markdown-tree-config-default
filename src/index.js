@@ -11,7 +11,7 @@ const sharedStyle = {
   boxSizing: 'border-box',
 };
 
-const Heading = (props: { level: number, children: any }) => {
+const Heading = (props: { level: number, style?: {}, children: any }) => {
   const { level } = props;
   const style = {
     ...Heading.style,
@@ -23,6 +23,7 @@ const Heading = (props: { level: number, children: any }) => {
     color: (level === 6 && 'rgb(100, 100, 100)') || 'black',
     paddingBottom: (level <= 2 && '0.3em') || null,
     borderBottom: (level <= 2 && '1px solid rgb(216, 216, 216)') || null,
+    ...props.style,
   };
   const H = `h${level}`;
   return <H style={style}>{props.children}</H>;
@@ -34,8 +35,11 @@ Heading.style = {
   lineHeight: '1.25',
 };
 
-const Paragraph = (props: { children: any }) => {
-  return <p style={Paragraph.style}>{props.children}</p>;
+const Paragraph = (props: { style?: {}, children: any }) => {
+  const style = props.style
+    ? { ...Paragraph.style, ...props.style }
+    : Paragraph.style;
+  return <p style={style}>{props.children}</p>;
 };
 Paragraph.style = {
   ...sharedStyle,
@@ -81,12 +85,14 @@ const List = (props: {
   type: 'ordered' | 'bullet',
   start?: number,
   tight: boolean,
+  style?: {},
   children: any,
 }) => {
+  const style = props.style ? { ...List.style, ...props.style } : List.style;
   if (props.type === 'ordered') {
-    return <ol start={props.start} style={List.style}>{props.children}</ol>;
+    return <ol start={props.start} style={style}>{props.children}</ol>;
   }
-  return <ul style={List.style}>{props.children}</ul>;
+  return <ul style={style}>{props.children}</ul>;
 };
 List.style = {
   ...sharedStyle,
@@ -106,7 +112,20 @@ const Item = (props: { children: any }) => {
 };
 
 const BlockQuote = (props: { children: any }) => {
-  return <blockquote>{props.children}</blockquote>;
+  const mappedChildren = React.Children.map(props.children, child =>
+    // add style color to children
+    React.cloneElement(child, {
+      style: { color: BlockQuote.style.color },
+    }),
+  );
+  return <blockquote style={BlockQuote.style}>{mappedChildren}</blockquote>;
+};
+BlockQuote.style = {
+  ...sharedStyle,
+  borderLeft: '4px solid rgb(215, 216, 216)',
+  color: 'rgb(100, 100, 100)',
+  padding: '0 1em',
+  margin: '0 0 1em',
 };
 
 const Emph = (props: { children: any }) => {
