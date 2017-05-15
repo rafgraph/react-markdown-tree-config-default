@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import Interactive from 'react-interactive';
 
 const sharedStyle = {
   fontFamily: 'system-ui, Helvetica, sans-serif',
@@ -42,10 +43,27 @@ Paragraph.style = {
 
 const Link = (props: { href: string, title?: string, children: any }) => {
   return (
-    <a href={props.href} title={props.title}>
+    <Interactive as="a" href={props.href} title={props.title} {...Link.style}>
       {props.children}
-    </a>
+    </Interactive>
   );
+};
+Link.style = {
+  style: {
+    ...sharedStyle,
+    color: 'rgb(3, 102, 214)',
+    backgroundColor: 'transparent',
+    textDecoration: 'none',
+  },
+  hover: { textDecoration: 'underline' },
+  active: 'hover',
+  focusFromTab: {
+    backgroundColor: 'rgba(3, 102, 214, 0.3)',
+    padding: '2px 4px',
+    margin: '-2px -4px',
+    borderRadius: '3px',
+  },
+  touchActiveTapOnly: true,
 };
 
 const Image = (props: { src: string, alt: string, title?: string }) => {
