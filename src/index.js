@@ -129,7 +129,10 @@ BlockQuote.style = {
 };
 
 const Emph = (props: { children: any }) => {
-  return <em>{props.children}</em>;
+  return <em style={Emph.style}>{props.children}</em>;
+};
+Emph.style = {
+  fontStyle: 'italic',
 };
 
 const Strong = (props: { children: any }) => {
