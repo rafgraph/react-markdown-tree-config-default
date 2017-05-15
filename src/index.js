@@ -33,7 +33,11 @@ Heading.style = {
 };
 
 const Paragraph = (props: { children: any }) => {
-  return <p>{props.children}</p>;
+  return <p style={Paragraph.style}>{props.children}</p>;
+};
+Paragraph.style = {
+  ...sharedStyle,
+  margin: '0 0 16px 0',
 };
 
 const Link = (props: { href: string, title?: string, children: any }) => {
