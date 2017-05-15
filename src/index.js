@@ -122,7 +122,7 @@ const BlockQuote = (props: { children: any }) => {
 };
 BlockQuote.style = {
   ...sharedStyle,
-  borderLeft: '4px solid rgb(215, 216, 216)',
+  borderLeft: '4px solid rgb(216, 216, 216)',
   color: 'rgb(100, 100, 100)',
   padding: '0 1em',
   margin: '0 0 1em',
@@ -156,7 +156,14 @@ const Linebreak = () => {
 };
 
 const ThematicBreak = () => {
-  return <hr />;
+  return <hr style={ThematicBreak.style} />;
+};
+ThematicBreak.style = {
+  border: 'none',
+  borderBottom: '4px solid rgb(216, 216, 216)',
+  padding: '0',
+  margin: '24px 0',
+  overflow: 'hidden',
 };
 
 const Code = (props: { literal: string }) => {
