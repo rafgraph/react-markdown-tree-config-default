@@ -58,7 +58,7 @@ Link.style = {
   hover: { textDecoration: 'underline' },
   active: 'hover',
   focusFromTab: {
-    backgroundColor: 'rgba(3, 102, 214, 0.3)',
+    backgroundColor: 'rgba(3, 102, 214, 0.2)',
     padding: '2px 4px',
     margin: '-2px -4px',
     borderRadius: '3px',
