@@ -1,9 +1,35 @@
 // @flow
 import React from 'react';
 
+const sharedStyle = {
+  fontFamily: 'system-ui, Helvetica, sans-serif',
+  lineHeight: '1.5',
+  wordWrap: 'break-word',
+  color: 'black',
+  fontSize: '16px',
+};
+
 const Heading = (props: { level: number, children: any }) => {
-  const H = `h${props.level}`;
-  return <H>{props.children}</H>;
+  const { level } = props;
+  const style = {
+    ...Heading.style,
+    fontSize: (level === 1 && '32px') ||
+      (level === 2 && '24px') ||
+      (level === 3 && '20px') ||
+      (level === 4 && '16px') ||
+      '14px',
+    color: (level === 6 && 'rgb(100, 100, 100)') || 'black',
+    paddingBottom: (level <= 2 && '0.3em') || null,
+    borderBottom: (level <= 2 && '1px solid rgb(216, 216, 216)') || null,
+  };
+  const H = `h${level}`;
+  return <H style={style}>{props.children}</H>;
+};
+Heading.style = {
+  ...sharedStyle,
+  fontWeight: '500',
+  margin: '24px 0 16px 0',
+  lineHeight: '1.25',
 };
 
 const Paragraph = (props: { children: any }) => {
