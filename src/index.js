@@ -8,6 +8,7 @@ const sharedStyle = {
   wordWrap: 'break-word',
   color: 'black',
   fontSize: '16px',
+  boxSizing: 'border-box',
 };
 
 const Heading = (props: { level: number, children: any }) => {
