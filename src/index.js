@@ -121,7 +121,21 @@ const ThematicBreak = () => {
 };
 
 const Code = (props: { literal: string }) => {
-  return <code>{props.literal}</code>;
+  return (
+    <code style={Code.style}>
+      <span style={{ letterSpacing: '-3px' }}>&nbsp;</span>
+      {props.literal}
+      <span style={{ letterSpacing: '-3px' }}>&nbsp;</span>
+    </code>
+  );
+};
+Code.style = {
+  ...sharedStyle,
+  fontFamily: 'Courier, monospace',
+  color: 'inherit',
+  backgroundColor: 'rgba(16, 16, 16, 0.05)',
+  padding: '2px 0',
+  borderRadius: '3px',
 };
 
 const CodeBlock = (props: { literal: string, language?: string }) => {
