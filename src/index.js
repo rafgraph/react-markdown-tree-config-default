@@ -142,12 +142,13 @@ Strong.style = {
   fontWeight: '600',
 };
 
-const Softbreak = () => {
-  // returning null will render text as though the softbreak doesn't exist
-  // to render a line break instead, return <br />;
-  // to render a space, omit this renderer
-  return null;
-};
+// render softbreak as a space, so omit this renderer
+// const Softbreak = () => {
+//   // returning null will render text as though the softbreak doesn't exist
+//   // to render a line break instead, return <br />;
+//   // to render a space, omit this renderer
+//   return null;
+// };
 
 // a line with 2 spaces at the end followed by a return
 const Linebreak = () => {
@@ -195,7 +196,6 @@ export default {
     BlockQuote,
     Emph,
     Strong,
-    Softbreak,
     Linebreak,
     ThematicBreak,
     Code,
