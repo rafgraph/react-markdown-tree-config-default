@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import Interactive from 'react-interactive';
-import hljs from 'highlight.js';
+import hljs from './highlight-js';
 import syntaxCssStyle from './atomOneLightStyle';
 
 const sharedStyle = {
