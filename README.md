@@ -1,6 +1,6 @@
 # React Markdown Tree Config Default
 
-Default config for [React Markdown Tree](https://github.com/rafrex/react-markdown-tree) for zero setup markdown styling with syntax highlighting.
+Default config for [React Markdown Tree](https://github.com/rafrex/react-markdown-tree) for zero setup markdown styling with syntax highlighting (the markdown style is loosely based on GitHub's style, and the syntax highlighting is based on Atom One Light).
 
 ```shell
 $ yarn add react-markdown-tree-config-default
