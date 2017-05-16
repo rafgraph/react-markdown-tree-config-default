@@ -169,15 +169,16 @@ ThematicBreak.style = {
 const Code = (props: { literal: string }) => {
   return (
     <code style={Code.style}>
-      <span style={{ letterSpacing: '-3px' }}>&nbsp;</span>
+      <span style={{ letterSpacing: '-4px' }}>&nbsp;</span>
       {props.literal}
-      <span style={{ letterSpacing: '-3px' }}>&nbsp;</span>
+      <span style={{ letterSpacing: '-4px' }}>&nbsp;</span>
     </code>
   );
 };
 Code.style = {
   ...sharedStyle,
-  fontFamily: 'Courier, monospace',
+  fontFamily: 'Menlo, Courier, monospace',
+  fontSize: '93.75%',
   color: 'inherit',
   backgroundColor: 'rgba(16, 16, 16, 0.05)',
   padding: '2px 0',
@@ -186,10 +187,23 @@ Code.style = {
 
 const CodeBlock = (props: { literal: string, language?: string }) => {
   return (
-    <pre style={{ width: '100%', overflow: 'scroll' }}>
+    <pre style={CodeBlock.style}>
       {props.literal}
     </pre>
   );
+};
+CodeBlock.style = {
+  ...sharedStyle,
+  fontFamily: 'Menlo, Courier, monospace',
+  width: '100%',
+  overflow: 'scroll',
+  backgroundColor: 'rgba(16, 16, 16, 0.05)',
+  borderRadius: '3px',
+  fontSize: '15px',
+  lineHeight: '1.35',
+  padding: '16px',
+  margin: '0',
+  wordWrap: 'normal',
 };
 
 export default {
