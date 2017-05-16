@@ -238,9 +238,10 @@ class CodeBlock extends React.Component {
   }
 
   render() {
-    const className = this.props.language === 'js'
-      ? 'javascript'
-      : this.props.language;
+    const language = typeof this.props.language === 'string'
+      ? this.props.language.toLowerCase()
+      : null;
+    const className = language === 'js' ? 'javascript' : language;
     return (
       <pre style={CodeBlock.style} ref={this.handleRef} className={className}>
         {this.props.literal}
