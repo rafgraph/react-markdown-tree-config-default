@@ -209,7 +209,7 @@ class CodeBlock extends React.Component {
     overflow: 'scroll',
     backgroundColor: 'rgba(16, 16, 16, 0.05)',
     borderRadius: '3px',
-    fontSize: '15px',
+    fontSize: '14px',
     lineHeight: '1.35',
     padding: '16px',
     margin: '0',
