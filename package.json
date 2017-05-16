@@ -55,6 +55,7 @@
     "webpack": "^2.5.0"
   },
   "dependencies": {
+    "highlight.js": "^9.11.0",
     "react-interactive": "^0.6.5"
   }
 }

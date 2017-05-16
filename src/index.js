@@ -1,6 +1,8 @@
 // @flow
 import React from 'react';
 import Interactive from 'react-interactive';
+import hljs from 'highlight.js';
+import syntaxCssStyle from './atomOneLightStyle';
 
 const sharedStyle = {
   fontFamily: 'system-ui, Helvetica, sans-serif',
@@ -185,26 +187,67 @@ Code.style = {
   borderRadius: '3px',
 };
 
-const CodeBlock = (props: { literal: string, language?: string }) => {
-  return (
-    <pre style={CodeBlock.style}>
-      {props.literal}
-    </pre>
-  );
-};
-CodeBlock.style = {
-  ...sharedStyle,
-  fontFamily: 'Menlo, Courier, monospace',
-  width: '100%',
-  overflow: 'scroll',
-  backgroundColor: 'rgba(16, 16, 16, 0.05)',
-  borderRadius: '3px',
-  fontSize: '15px',
-  lineHeight: '1.35',
-  padding: '16px',
-  margin: '0',
-  wordWrap: 'normal',
-};
+let syntaxStylesAdded = false;
+function addSyntaxStyles() {
+  const style = document.createElement('style');
+  style.type = 'text/css';
+  style.appendChild(document.createTextNode(syntaxCssStyle));
+  document.getElementsByTagName('head')[0].appendChild(style);
+  syntaxStylesAdded = true;
+}
+
+class CodeBlock extends React.Component {
+  props: {
+    literal: string,
+    language: string,
+  };
+
+  static style = {
+    ...sharedStyle,
+    fontFamily: 'Menlo, Courier, monospace',
+    width: '100%',
+    overflow: 'scroll',
+    backgroundColor: 'rgba(16, 16, 16, 0.05)',
+    borderRadius: '3px',
+    fontSize: '15px',
+    lineHeight: '1.35',
+    padding: '16px',
+    margin: '0',
+    wordWrap: 'normal',
+  };
+
+  domNode = null;
+
+  handleRef = (domNode: any) => {
+    this.domNode = domNode;
+  };
+
+  componentDidMount() {
+    if (!syntaxStylesAdded) addSyntaxStyles();
+    hljs.highlightBlock(this.domNode);
+  }
+  componentDidUpdate() {
+    hljs.highlightBlock(this.domNode);
+  }
+
+  shouldComponentUpdate(nextProps: { literal: string, language: string }) {
+    return (
+      this.props.literal !== nextProps.literal ||
+      this.props.language !== nextProps.language
+    );
+  }
+
+  render() {
+    const className = this.props.language === 'js'
+      ? 'javascript'
+      : this.props.language;
+    return (
+      <pre style={CodeBlock.style} ref={this.handleRef} className={className}>
+        {this.props.literal}
+      </pre>
+    );
+  }
+}
 
 export default {
   renderers: {
