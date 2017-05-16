@@ -211,12 +211,12 @@ class CodeBlock extends React.Component {
     fontFamily: 'Menlo, Courier, monospace',
     width: '100%',
     overflow: 'scroll',
-    backgroundColor: 'rgba(16, 16, 16, 0.05)',
+    backgroundColor: 'rgba(16, 16, 16, 0.04)',
     borderRadius: '3px',
     fontSize: '14px',
-    lineHeight: '1.35',
+    lineHeight: '1.45',
     padding: '16px',
-    margin: '0',
+    margin: '0 0 16px 0',
     wordWrap: 'normal',
   };
 
