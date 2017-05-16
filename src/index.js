@@ -108,9 +108,13 @@ const Item = (props: { children: any }) => {
   const containsList = props.children.some(
     child => React.isValidElement(child) && child.type === List,
   );
-  const style = {};
-  if (containsList) style.margin = '0 0 -16px';
+  const style = { ...Item.style };
+  if (containsList) style.margin = '4px 0 -12px';
   return <li style={style}>{props.children}</li>;
+};
+Item.style = {
+  margin: '4px 0',
+  lineHeight: '1.4',
 };
 
 const BlockQuote = (props: { children: any }) => {
