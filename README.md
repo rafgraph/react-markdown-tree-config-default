@@ -1,5 +1,7 @@
 # React Markdown Tree Config Default
 
+[Live Example](http://react-markdown-tree.rafrex.com)
+
 Default config for [React Markdown Tree](https://github.com/rafrex/react-markdown-tree) for zero setup markdown styling with syntax highlighting (the markdown style is loosely based on GitHub's style, and the syntax highlighting is based on Atom One Light).
 
 ```shell
@@ -9,6 +11,7 @@ $ npm install --save react-markdown-tree-config-default
 ```
 
 ```js
+import React from 'react';
 import { MarkdownProvider } from 'react-markdown-tree';
 import markdownConfig from 'react-markdown-tree-config-default';
 import App from './App';
@@ -28,6 +31,7 @@ You can also use the UMD build that's available from Unpkg:
 
 The imported `markdownConfig` is a mutable POJO, so you can overwrite any of the renderers by assigning it to your custom renderer (a ReactComponent). This is useful if overall you like the style but want to slightly tweak how it renders. You can also add a `containerProps` object for default props to pass down to every instance of `<Markdown>`. These edits must be made before passing it in as a `prop` to `<MarkdownProvider>`. See [React Markdown Tree Config](https://github.com/rafrex/react-markdown-tree#config-object) for more info on the config object structure.
 ```js
+import React from 'react';
 import markdownConfig from 'react-markdown-tree-config-default';
 
 // to render soft breaks as line breaks
