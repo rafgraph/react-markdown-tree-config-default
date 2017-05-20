@@ -191,20 +191,21 @@ Code.style = {
   borderRadius: '3px',
 };
 
-let syntaxStylesAdded = false;
-function addSyntaxStyles() {
-  const style = document.createElement('style');
-  style.type = 'text/css';
-  style.appendChild(document.createTextNode(syntaxCssStyle));
-  document.getElementsByTagName('head')[0].appendChild(style);
-  syntaxStylesAdded = true;
-}
-
 class CodeBlock extends React.Component {
   props: {
     literal: string,
     language: string,
   };
+
+  static syntaxStylesAdded = false;
+
+  static addSyntaxStyles() {
+    const style = document.createElement('style');
+    style.type = 'text/css';
+    style.appendChild(document.createTextNode(syntaxCssStyle));
+    document.getElementsByTagName('head')[0].appendChild(style);
+    CodeBlock.syntaxStylesAdded = true;
+  }
 
   static style = {
     ...sharedStyle,
@@ -227,7 +228,7 @@ class CodeBlock extends React.Component {
   };
 
   componentDidMount() {
-    if (!syntaxStylesAdded) addSyntaxStyles();
+    if (!CodeBlock.syntaxStylesAdded) CodeBlock.addSyntaxStyles();
     hljs.highlightBlock(this.domNode);
   }
   componentDidUpdate() {
