@@ -17,18 +17,18 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rafrex/react-markdown-tree-config-default.git"
+    "url": "git+https://github.com/rafgraph/react-markdown-tree-config-default.git"
   },
   "keywords": [
     "react"
   ],
-  "author": "Rafael Pedicini <code@rafrex.com>",
+  "author": "Rafael Pedicini <rafael@rafgraph.dev>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rafrex/react-markdown-tree-config-default/issues"
+    "url": "https://github.com/rafgraph/react-markdown-tree-config-default/issues"
   },
   "peerDependencies": {
-    "react": ">=15"
+    "react": ">=16.3"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -54,6 +54,6 @@
     "webpack": "^2.5.0"
   },
   "dependencies": {
-    "react-interactive": "^0.6.5"
+    "react-interactive": "^0.9.2"
   }
 }
