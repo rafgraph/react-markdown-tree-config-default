@@ -1,6 +1,6 @@
 {
   "name": "react-markdown-tree-config-default",
-  "version": "0.4.2",
+  "version": "1.0.0",
   "description": "Default Config for React Markdown Tree",
   "main": "lib/index.js",
   "scripts": {
