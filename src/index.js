@@ -1,5 +1,5 @@
-// @flow
 import React from 'react';
+import PropTypes from 'prop-types';
 import Interactive from 'react-interactive';
 import hljs from './highlight-js';
 import syntaxCssStyle from './atomOneLightStyle';
@@ -13,11 +13,12 @@ const sharedStyle = {
   boxSizing: 'border-box',
 };
 
-const Heading = (props: { level: number, style?: {}, children: any }) => {
+const Heading = (props) => {
   const { level } = props;
   const style = {
     ...Heading.style,
-    fontSize: (level === 1 && '32px') ||
+    fontSize:
+      (level === 1 && '32px') ||
       (level === 2 && '24px') ||
       (level === 3 && '20px') ||
       (level === 4 && '16px') ||
@@ -36,8 +37,13 @@ Heading.style = {
   margin: '24px 0 16px 0',
   lineHeight: '1.25',
 };
+Heading.propTypes = {
+  level: PropTypes.number.isRequired,
+  style: PropTypes.object,
+  children: PropTypes.node,
+};
 
-const Paragraph = (props: { style?: {}, children: any }) => {
+const Paragraph = (props) => {
   const style = props.style
     ? { ...Paragraph.style, ...props.style }
     : Paragraph.style;
@@ -47,8 +53,12 @@ Paragraph.style = {
   ...sharedStyle,
   margin: '0 0 16px 0',
 };
+Paragraph.propTypes = {
+  style: PropTypes.object,
+  children: PropTypes.node,
+};
 
-const Link = (props: { href: string, title?: string, children: any }) => {
+const Link = (props) => {
   return (
     <Interactive as="a" href={props.href} title={props.title} {...Link.style}>
       {props.children}
@@ -72,27 +82,35 @@ Link.style = {
   },
   touchActiveTapOnly: true,
 };
+Link.propTypes = {
+  href: PropTypes.string,
+  title: PropTypes.string,
+  children: PropTypes.node,
+};
 
-const Image = (props: { src: string, alt: string, title?: string }) => {
+const Image = (props) => {
   return <img src={props.src} alt={props.alt} title={props.title} />;
+};
+Image.propTypes = {
+  src: PropTypes.string,
+  alt: PropTypes.string,
+  title: PropTypes.string,
 };
 
 // tight prop is if the list items don't have blank lines between them
 // if a list is not tight then the contents are automatically wrapped in p tags
 // e.g. <li><p>rendered item of loose list</p></li>
 // see http://spec.commonmark.org/0.26/#lists for more info
-// you don't have to wrry about this in your renderer unless you want to
+// you don't have to worry about this in your renderer unless you want to
 // treat tight/loose lists differently (the p tags are already a part of children)
-const List = (props: {
-  type: 'ordered' | 'bullet',
-  start?: number,
-  tight: boolean,
-  style?: {},
-  children: any,
-}) => {
+const List = (props) => {
   const style = props.style ? { ...List.style, ...props.style } : List.style;
   if (props.type === 'ordered') {
-    return <ol start={props.start} style={style}>{props.children}</ol>;
+    return (
+      <ol start={props.start} style={style}>
+        {props.children}
+      </ol>
+    );
   }
   return <ul style={style}>{props.children}</ul>;
 };
@@ -101,12 +119,19 @@ List.style = {
   margin: '0 0 16px',
   paddingLeft: '2em',
 };
+List.propTypes = {
+  type: PropTypes.oneOf(['ordered', 'bullet']).isRequired,
+  start: PropTypes.number,
+  tight: PropTypes.bool,
+  style: PropTypes.object,
+  children: PropTypes.node,
+};
 
-const Item = (props: { children: any }) => {
-  // check to see if the item conains another list, if it does
+const Item = (props) => {
+  // check to see if the item contains another list, if it does
   // offset the bottom margin of the list it contains
   const containsList = props.children.some(
-    child => React.isValidElement(child) && child.type === List,
+    (child) => React.isValidElement(child) && child.type === List,
   );
   const style = { ...Item.style };
   if (containsList) style.margin = '4px 0 -12px';
@@ -116,9 +141,12 @@ Item.style = {
   margin: '4px 0',
   lineHeight: '1.4',
 };
+Item.propTypes = {
+  children: PropTypes.node,
+};
 
-const BlockQuote = (props: { children: any }) => {
-  const mappedChildren = React.Children.map(props.children, child =>
+const BlockQuote = (props) => {
+  const mappedChildren = React.Children.map(props.children, (child) =>
     // add style color to children
     React.cloneElement(child, {
       style: { color: BlockQuote.style.color },
@@ -133,19 +161,28 @@ BlockQuote.style = {
   padding: '0 1em',
   margin: '0 0 1em',
 };
+BlockQuote.propTypes = {
+  children: PropTypes.node,
+};
 
-const Emph = (props: { children: any }) => {
+const Emph = (props) => {
   return <em style={Emph.style}>{props.children}</em>;
 };
 Emph.style = {
   fontStyle: 'italic',
 };
+Emph.propTypes = {
+  children: PropTypes.node,
+};
 
-const Strong = (props: { children: any }) => {
+const Strong = (props) => {
   return <strong style={Strong.style}>{props.children}</strong>;
 };
 Strong.style = {
   fontWeight: '600',
+};
+Strong.propTypes = {
+  children: PropTypes.node,
 };
 
 // render softbreak as a space, so omit this renderer
@@ -172,7 +209,7 @@ ThematicBreak.style = {
   overflow: 'hidden',
 };
 
-const Code = (props: { literal: string }) => {
+const Code = (props) => {
   return (
     <code style={Code.style}>
       <span style={{ letterSpacing: '-4px' }}>&nbsp;</span>
@@ -190,13 +227,11 @@ Code.style = {
   padding: '2px 0',
   borderRadius: '3px',
 };
+Code.propTypes = {
+  literal: PropTypes.string,
+};
 
 class CodeBlock extends React.Component {
-  props: {
-    literal: string,
-    language: string,
-  };
-
   static syntaxStylesAdded = false;
 
   static addSyntaxStyles() {
@@ -223,7 +258,7 @@ class CodeBlock extends React.Component {
 
   domNode = null;
 
-  handleRef = (domNode: any) => {
+  handleRef = (domNode) => {
     this.domNode = domNode;
   };
 
@@ -235,7 +270,7 @@ class CodeBlock extends React.Component {
     hljs.highlightBlock(this.domNode);
   }
 
-  shouldComponentUpdate(nextProps: { literal: string, language: string }) {
+  shouldComponentUpdate(nextProps) {
     return (
       this.props.literal !== nextProps.literal ||
       this.props.language !== nextProps.language
@@ -243,9 +278,10 @@ class CodeBlock extends React.Component {
   }
 
   render() {
-    const language = typeof this.props.language === 'string'
-      ? this.props.language.toLowerCase()
-      : null;
+    const language =
+      typeof this.props.language === 'string'
+        ? this.props.language.toLowerCase()
+        : null;
     const className = language === 'js' ? 'javascript' : language;
     return (
       <pre style={CodeBlock.style} ref={this.handleRef} className={className}>
@@ -254,6 +290,10 @@ class CodeBlock extends React.Component {
     );
   }
 }
+CodeBlock.propTypes = {
+  literal: PropTypes.string,
+  language: PropTypes.string,
+};
 
 export default {
   renderers: {
